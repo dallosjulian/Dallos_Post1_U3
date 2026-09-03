@@ -1,0 +1,474 @@
+/* ==========================================================
+   estilos.css — Parte 1: Página de Perfil Personal con CSS3
+   Autores: Julian Dallos
+   ========================================================== */
+
+/* ——————————————————————————————————————————————————
+   0. RESET & BOX-SIZING
+   —————————————————————————————————————————————————— */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ——————————————————————————————————————————————————
+   1. CUSTOM PROPERTIES — Escala de espaciado y tokens
+   —————————————————————————————————————————————————— */
+:root {
+  /* Escala de espaciado (basada en factor ×1.5) */
+  --space-3xs: 0.25rem;   /*  4px */
+  --space-2xs: 0.375rem;  /*  6px */
+  --space-xs:  0.5rem;     /*  8px */
+  --space-sm:  0.75rem;    /* 12px */
+  --space-md:  1rem;       /* 16px */
+  --space-lg:  1.5rem;     /* 24px */
+  --space-xl:  2rem;       /* 32px */
+  --space-2xl: 3rem;       /* 48px */
+  --space-3xl: 4rem;       /* 64px */
+
+  /* Paleta de colores */
+  --clr-bg:          #0f1117;
+  --clr-surface:     #1a1d27;
+  --clr-surface-alt: #242836;
+  --clr-border:      #2e3346;
+  --clr-text:        #e2e4ed;
+  --clr-text-muted:  #8b8fa7;
+  --clr-primary:     #7c6ef0;
+  --clr-primary-light:#9d93f5;
+  --clr-accent:      #56d4a0;
+  --clr-danger:      #f06e6e;
+  --clr-danger-soft:  rgba(240, 110, 110, 0.15);
+  --clr-focus-ring:   rgba(124, 110, 240, 0.45);
+
+  /* Tipografía */
+  --ff-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --ff-mono: 'Cascadia Code', 'Fira Code', monospace;
+
+  /* Radios */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-full: 50%;
+
+  /* Sombra */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 20px rgba(124, 110, 240, 0.25);
+
+  /* Transición */
+  --transition: 0.3s ease;
+
+  /* Header height */
+  --header-h: 60px;
+}
+
+/* ——————————————————————————————————————————————————
+   2. BASE
+   —————————————————————————————————————————————————— */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + var(--space-lg));
+}
+
+body {
+  font-family: var(--ff-sans);
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--clr-primary-light);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--clr-accent);
+}
+
+/* ——————————————————————————————————————————————————
+   3. HEADER FIJO — position: fixed
+   —————————————————————————————————————————————————— */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-h);
+  background: rgba(15, 17, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--clr-border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.site-header__nav {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-header__logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--clr-primary);
+  letter-spacing: 0.05em;
+}
+
+.site-header__logo:hover {
+  color: var(--clr-accent);
+}
+
+.site-header__menu {
+  list-style: none;
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.site-header__menu a {
+  color: var(--clr-text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.site-header__menu a:hover {
+  color: var(--clr-text);
+}
+
+/* ——————————————————————————————————————————————————
+   4. CONTENIDO PRINCIPAL
+   —————————————————————————————————————————————————— */
+.main-content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: calc(var(--header-h) + var(--space-3xl)) var(--space-lg) var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
+
+/* ——————————————————————————————————————————————————
+   5. TARJETA DE PERFIL
+   —————————————————————————————————————————————————— */
+.profile-card {
+  text-align: center;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3xl) var(--space-xl);
+  box-shadow: var(--shadow-card);
+}
+
+/*
+ * JUSTIFICACIÓN — position: relative en .avatar-wrapper
+ * ---------------------------------------------------------------------------
+ * Se usa "position: relative" en .avatar-wrapper para establecer un contexto
+ * de posicionamiento (containing block) para el badge (.badge) que se posiciona
+ * con "position: absolute". De este modo el badge se ubica en la esquina
+ * inferior-derecha del avatar de forma precisa, sin depender del flujo normal
+ * del documento ni de coordenadas relativas al viewport. Esto mantiene la
+ * relación espacial entre avatar y badge intacta ante cualquier cambio de
+ * layout o tamaño de pantalla.
+ * ---------------------------------------------------------------------------
+ */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: var(--space-lg);
+}
+
+.avatar-wrapper__img {
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 4px solid var(--clr-primary);
+  box-shadow: var(--shadow-glow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.avatar-wrapper__img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(124, 110, 240, 0.45);
+}
+
+.badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  background: var(--clr-accent);
+  color: var(--clr-bg);
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  border: 3px solid var(--clr-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(86, 212, 160, 0.4);
+}
+
+/*
+ * JUSTIFICACIÓN — clamp() para tipografía fluida
+ * ---------------------------------------------------------------------------
+ * Se usa clamp(1.6rem, 4vw, 2.5rem) para que el nombre del perfil escale de
+ * forma continua y fluida entre un mínimo de 1.6rem y un máximo de 2.5rem,
+ * usando 4vw como valor preferido. Esto evita saltos bruscos entre breakpoints
+ * (como ocurriría con media queries discretas) y garantiza una lectura cómoda
+ * tanto en pantallas pequeñas (donde el texto no se desborda) como en
+ * pantallas grandes (donde no crece de manera desproporcionada). Es una sola
+ * declaración que reemplaza múltiples reglas de font-size en media queries.
+ * ---------------------------------------------------------------------------
+ */
+.profile-card__name {
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: var(--space-xs);
+  letter-spacing: -0.02em;
+}
+
+.profile-card__role {
+  font-size: 1.05rem;
+  color: var(--clr-primary-light);
+  font-weight: 500;
+  margin-bottom: var(--space-md);
+}
+
+.profile-card__bio {
+  font-size: 0.95rem;
+  color: var(--clr-text-muted);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ——————————————————————————————————————————————————
+   6. SECCIÓN HABILIDADES — Combinador hijo directo >
+   —————————————————————————————————————————————————— */
+.skills {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.skills__title {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  margin-bottom: var(--space-lg);
+  color: var(--clr-text);
+  text-align: center;
+}
+
+/*
+ * JUSTIFICACIÓN — Combinador de hijo directo (>)
+ * ---------------------------------------------------------------------------
+ * Se usa el combinador ">" en ".skills__list > .skills__item" para aplicar los
+ * estilos únicamente a los <li> que son hijos directos de .skills__list,
+ * evitando que estilos se propaguen a listas anidadas o elementos internos.
+ * Esto aporta mayor control de especificidad y previene efectos colaterales
+ * si en el futuro se añaden sublistas dentro de las habilidades. El selector
+ * es más preciso y autodocumentado que un selector descendiente genérico.
+ * ---------------------------------------------------------------------------
+ */
+.skills__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.skills__list > .skills__item {
+  background: var(--clr-surface-alt);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.92rem;
+  color: var(--clr-text-muted);
+  transition: background var(--transition), color var(--transition),
+              border-color var(--transition), transform var(--transition);
+  text-align: center;
+}
+
+.skills__list > .skills__item:hover {
+  background: var(--clr-primary);
+  color: var(--clr-text);
+  border-color: var(--clr-primary);
+  transform: translateY(-2px);
+}
+
+/* ——————————————————————————————————————————————————
+   7. FORMULARIO DE CONTACTO
+   —————————————————————————————————————————————————— */
+.contact {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.contact__title {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  margin-bottom: var(--space-lg);
+  color: var(--clr-text);
+  text-align: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.contact-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.contact-form__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.contact-form__input {
+  font-family: var(--ff-sans);
+  font-size: 0.95rem;
+  color: var(--clr-text);
+  background: var(--clr-surface-alt);
+  border: 2px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.contact-form__input::placeholder {
+  color: var(--clr-text-muted);
+  opacity: 0.6;
+}
+
+/* ---- Focus accesible ---- */
+.contact-form__input:focus {
+  outline: none;
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px var(--clr-focus-ring);
+}
+
+/*
+ * VALIDACIÓN — Estrategia A: input:invalid:not(:placeholder-shown)
+ * ---------------------------------------------------------------------------
+ * Se eligió la Estrategia A porque muestra el borde rojo de error SOLO cuando
+ * el usuario ya escribió algo (el placeholder deja de mostrarse) y el valor
+ * no pasa la validación nativa del campo. Esto evita que los campos aparezcan
+ * en rojo al cargar la página (cuando están vacíos pero son :invalid por el
+ * atributo required), mejorando la experiencia de usuario.
+ *
+ * NO se usa !important porque la especificidad del selector compuesto
+ * (pseudo-clase + pseudo-clase + pseudo-clase = 0-3-1) ya supera al selector
+ * base del input (0-1-0). Además, !important rompe la cascada natural y
+ * dificulta la sobrescritura futura de estilos. Sin !important, el :focus
+ * sigue prevaleciendo cuando se combina correctamente.
+ * ---------------------------------------------------------------------------
+ */
+.contact-form__input:invalid:not(:placeholder-shown) {
+  border-color: var(--clr-danger);
+  box-shadow: 0 0 0 3px var(--clr-danger-soft);
+}
+
+/* Cuando el campo inválido recibe foco, volvemos al anillo de foco primario
+   para no confundir al usuario mientras edita. */
+.contact-form__input:focus:invalid:not(:placeholder-shown) {
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px var(--clr-focus-ring);
+}
+
+.contact-form__textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form__submit {
+  font-family: var(--ff-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--clr-bg);
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-light));
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-xl);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  align-self: flex-start;
+}
+
+.contact-form__submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 110, 240, 0.4);
+}
+
+.contact-form__submit:active {
+  transform: translateY(0);
+}
+
+/* ——————————————————————————————————————————————————
+   8. FOOTER
+   —————————————————————————————————————————————————— */
+.site-footer {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+  border-top: 1px solid var(--clr-border);
+  color: var(--clr-text-muted);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+
+.site-footer strong {
+  color: var(--clr-primary-light);
+}
+
+/* ——————————————————————————————————————————————————
+   9. RESPONSIVE
+   —————————————————————————————————————————————————— */
+@media (max-width: 600px) {
+  .site-header__menu {
+    gap: var(--space-md);
+  }
+
+  .main-content {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .avatar-wrapper__img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .contact-form__submit {
+    align-self: stretch;
+  }
+}
