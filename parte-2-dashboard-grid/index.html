@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard responsivo con CSS Grid y Flexbox — Laboratorio Post-contenido U3">
+  <title>Dashboard — Julian Dallos</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- ===== LAYOUT PRINCIPAL DEL DASHBOARD ===== -->
+  <div class="app-layout" id="app-layout">
+
+    <!-- —— Sidebar —— -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__brand">
+        <span class="sidebar__logo">◈</span>
+        <span class="sidebar__brand-name">Dashboard</span>
+      </div>
+
+      <nav class="sidebar__nav" aria-label="Navegación principal">
+        <ul class="sidebar__menu">
+          <li><a href="#" class="sidebar__link sidebar__link--active" aria-current="page">📊 Resumen</a></li>
+          <li><a href="#" class="sidebar__link">📁 Proyectos</a></li>
+          <li><a href="#" class="sidebar__link">📝 Notas</a></li>
+          <li><a href="#" class="sidebar__link">📈 Analíticas</a></li>
+          <li><a href="#" class="sidebar__link">⚙️ Configuración</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar__footer">
+        <p class="sidebar__user">Julian Dallos</p>
+        <p class="sidebar__role">Administrador</p>
+      </div>
+    </aside>
+
+    <!-- —— Topbar —— -->
+    <header class="topbar" id="topbar">
+      <h1 class="topbar__title">Resumen General</h1>
+      <div class="topbar__actions">
+        <input type="search" class="topbar__search" placeholder="Buscar..." aria-label="Buscar" id="search-input">
+        <button class="topbar__btn" id="notifications-btn" aria-label="Notificaciones">🔔</button>
+        <div class="topbar__avatar" aria-label="Perfil de usuario">JD</div>
+      </div>
+    </header>
+
+    <!-- —— Main —— -->
+    <main class="main" id="main-content">
+
+      <!-- Stats Row -->
+      <section class="stats-row" id="stats-row" aria-label="Estadísticas rápidas">
+        <article class="stat-card" id="stat-projects">
+          <span class="stat-card__icon">📁</span>
+          <div class="stat-card__info">
+            <span class="stat-card__value">12</span>
+            <span class="stat-card__label">Proyectos</span>
+          </div>
+        </article>
+
+        <article class="stat-card" id="stat-tasks">
+          <span class="stat-card__icon">✅</span>
+          <div class="stat-card__info">
+            <span class="stat-card__value">48</span>
+            <span class="stat-card__label">Tareas completadas</span>
+          </div>
+        </article>
+
+        <article class="stat-card" id="stat-pending">
+          <span class="stat-card__icon">⏳</span>
+          <div class="stat-card__info">
+            <span class="stat-card__value">7</span>
+            <span class="stat-card__label">Pendientes</span>
+          </div>
+        </article>
+
+        <article class="stat-card" id="stat-team">
+          <span class="stat-card__icon">👥</span>
+          <div class="stat-card__info">
+            <span class="stat-card__value">5</span>
+            <span class="stat-card__label">Colaboradores</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- Content Row -->
+      <section class="content-row" id="content-row">
+
+        <!-- Tabla de Proyectos -->
+        <div class="card card--projects" id="card-projects">
+          <h2 class="card__title">Proyectos Recientes</h2>
+          <div class="card__table-wrapper">
+            <table class="projects-table" id="projects-table">
+              <thead>
+                <tr>
+                  <th>Proyecto</th>
+                  <th>Estado</th>
+                  <th>Progreso</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sitio Web Corporativo</td>
+                  <td><span class="badge badge--success">Activo</span></td>
+                  <td>
+                    <div class="progress-bar"><div class="progress-bar__fill" style="width: 85%"></div></div>
+                  </td>
+                  <td>15 Mar 2025</td>
+                </tr>
+                <tr>
+                  <td>App Móvil E-commerce</td>
+                  <td><span class="badge badge--warning">En pausa</span></td>
+                  <td>
+                    <div class="progress-bar"><div class="progress-bar__fill" style="width: 45%"></div></div>
+                  </td>
+                  <td>02 Feb 2025</td>
+                </tr>
+                <tr>
+                  <td>Dashboard Analítico</td>
+                  <td><span class="badge badge--success">Activo</span></td>
+                  <td>
+                    <div class="progress-bar"><div class="progress-bar__fill" style="width: 70%"></div></div>
+                  </td>
+                  <td>28 Ene 2025</td>
+                </tr>
+                <tr>
+                  <td>API REST Inventarios</td>
+                  <td><span class="badge badge--danger">Detenido</span></td>
+                  <td>
+                    <div class="progress-bar"><div class="progress-bar__fill" style="width: 20%"></div></div>
+                  </td>
+                  <td>10 Ene 2025</td>
+                </tr>
+                <tr>
+                  <td>Rediseño Intranet</td>
+                  <td><span class="badge badge--success">Activo</span></td>
+                  <td>
+                    <div class="progress-bar"><div class="progress-bar__fill" style="width: 60%"></div></div>
+                  </td>
+                  <td>05 Dic 2024</td>
+                </tr>
+                <tr>
+                  <td>Portal de Soporte</td>
+                  <td><span class="badge badge--warning">En pausa</span></td>
+                  <td>
+                    <div class="progress-bar"><div class="progress-bar__fill" style="width: 35%"></div></div>
+                  </td>
+                  <td>22 Nov 2024</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Panel Lateral -->
+        <div class="card card--activity" id="card-activity">
+          <h2 class="card__title">Actividad Reciente</h2>
+          <ul class="activity-list">
+            <li class="activity-list__item">
+              <span class="activity-list__dot activity-list__dot--green"></span>
+              <div>
+                <p class="activity-list__text">Se completó <strong>Sitio Web Corporativo</strong> — módulo de contacto.</p>
+                <time class="activity-list__time">Hace 2 horas</time>
+              </div>
+            </li>
+            <li class="activity-list__item">
+              <span class="activity-list__dot activity-list__dot--blue"></span>
+              <div>
+                <p class="activity-list__text">Nuevo colaborador añadido a <strong>Dashboard Analítico</strong>.</p>
+                <time class="activity-list__time">Hace 5 horas</time>
+              </div>
+            </li>
+            <li class="activity-list__item">
+              <span class="activity-list__dot activity-list__dot--orange"></span>
+              <div>
+                <p class="activity-list__text"><strong>API REST Inventarios</strong> fue detenido por falta de recursos.</p>
+                <time class="activity-list__time">Ayer</time>
+              </div>
+            </li>
+            <li class="activity-list__item">
+              <span class="activity-list__dot activity-list__dot--green"></span>
+              <div>
+                <p class="activity-list__text">Revisión de código aprobada en <strong>App Móvil E-commerce</strong>.</p>
+                <time class="activity-list__time">Hace 2 días</time>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Notas (colocación explícita grid-column: 1 / -1) -->
+        <div class="card card--notes" id="card-notes">
+          <h2 class="card__title">📝 Notas Rápidas</h2>
+          <div class="notes-grid">
+            <div class="note" id="note-1">
+              <h3 class="note__title">Reunión de Sprint</h3>
+              <p class="note__text">Revisar las tareas pendientes del Sprint 4 y asignar responsables para el cierre de módulo.</p>
+            </div>
+            <div class="note" id="note-2">
+              <h3 class="note__title">Documentación API</h3>
+              <p class="note__text">Actualizar los endpoints del módulo de autenticación con los nuevos parámetros requeridos.</p>
+            </div>
+            <div class="note" id="note-3">
+              <h3 class="note__title">Deploy a Producción</h3>
+              <p class="note__text">Programar el deploy para el viernes 20:00 hrs. Coordinar con el equipo de infraestructura.</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Footer -->
+      <footer class="dashboard-footer" id="dashboard-footer">
+        <p>&copy; 2025 — Proyecto desarrollado por <strong>Julian Dallos</strong> · Post-contenido Unidad 3</p>
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
