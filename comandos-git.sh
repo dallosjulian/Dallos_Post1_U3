@@ -53,10 +53,9 @@ git add capturas/
 git commit -m "docs: evidencias y capturas de pantalla de la entrega"
 
 # --- Push al repositorio remoto ---
-# IMPORTANTE: Reemplazar <TU-USUARIO> con el usuario de GitHub real
-git remote add origin https://github.com/<TU-USUARIO>/Dallos_Post1_U3.git
+git remote add origin https://github.com/dallosjulian/Dallos_Post1_U3.git 2>/dev/null || true
 git push -u origin main
 
 echo ""
 echo "✅ Todos los commits han sido realizados y el push fue exitoso."
-echo "🔗 Verifica en: https://github.com/<TU-USUARIO>/Dallos_Post1_U3"
+echo "🔗 Verifica en: https://github.com/dallosjulian/Dallos_Post1_U3"
