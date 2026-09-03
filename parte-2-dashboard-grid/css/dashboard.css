@@ -1,0 +1,633 @@
+/* ==========================================================
+   dashboard.css — Parte 2: Dashboard Responsivo con Grid & Flexbox
+   Autores: Julian Dallos
+   ========================================================== */
+
+/* ——————————————————————————————————————————————————
+   0. RESET & BOX-SIZING
+   —————————————————————————————————————————————————— */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ——————————————————————————————————————————————————
+   1. CUSTOM PROPERTIES
+   —————————————————————————————————————————————————— */
+:root {
+  /* Colores */
+  --clr-bg:           #0b0d13;
+  --clr-sidebar:      #111422;
+  --clr-surface:      #171b28;
+  --clr-surface-alt:  #1e2235;
+  --clr-border:       #272d42;
+  --clr-text:         #e1e3ed;
+  --clr-text-muted:   #7e83a0;
+  --clr-primary:      #7c6ef0;
+  --clr-primary-soft: rgba(124, 110, 240, 0.15);
+  --clr-accent:       #56d4a0;
+  --clr-warning:      #f0b254;
+  --clr-danger:       #f06e6e;
+  --clr-success:      #56d4a0;
+
+  /* Espaciado */
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+
+  /* Tipografía */
+  --ff-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  /* Radios */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+
+  /* Transición */
+  --transition: 0.25s ease;
+
+  /* Layout */
+  --sidebar-w: 250px;
+  --topbar-h:  60px;
+}
+
+/* ——————————————————————————————————————————————————
+   2. BASE
+   —————————————————————————————————————————————————— */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--ff-sans);
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ——————————————————————————————————————————————————
+   3. APP LAYOUT — CSS Grid con grid-template-areas
+   —————————————————————————————————————————————————— */
+.app-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: var(--topbar-h) 1fr;
+  grid-template-areas:
+    "sidebar topbar"
+    "sidebar main";
+  min-height: 100vh;
+}
+
+/* ——————————————————————————————————————————————————
+   4. SIDEBAR — Flexbox column
+   —————————————————————————————————————————————————— */
+.sidebar {
+  grid-area: sidebar;
+  background: var(--clr-sidebar);
+  border-right: 1px solid var(--clr-border);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-lg) 0;
+  overflow-y: auto;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0 var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.sidebar__logo {
+  font-size: 1.6rem;
+  color: var(--clr-primary);
+}
+
+.sidebar__brand-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  letter-spacing: -0.02em;
+}
+
+.sidebar__nav {
+  flex: 1;
+}
+
+.sidebar__menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.sidebar__link {
+  display: block;
+  padding: var(--space-sm) var(--space-lg);
+  font-size: 0.92rem;
+  color: var(--clr-text-muted);
+  border-left: 3px solid transparent;
+  transition: all var(--transition);
+}
+
+.sidebar__link:hover {
+  color: var(--clr-text);
+  background: var(--clr-surface);
+  border-left-color: var(--clr-primary);
+}
+
+.sidebar__link--active {
+  color: var(--clr-primary);
+  background: var(--clr-primary-soft);
+  border-left-color: var(--clr-primary);
+  font-weight: 600;
+}
+
+.sidebar__footer {
+  padding: var(--space-lg);
+  border-top: 1px solid var(--clr-border);
+  margin-top: var(--space-lg);
+}
+
+.sidebar__user {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+.sidebar__role {
+  font-size: 0.78rem;
+  color: var(--clr-text-muted);
+}
+
+/* ——————————————————————————————————————————————————
+   5. TOPBAR — Flexbox space-between
+   —————————————————————————————————————————————————— */
+.topbar {
+  grid-area: topbar;
+  background: var(--clr-sidebar);
+  border-bottom: 1px solid var(--clr-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-xl);
+}
+
+.topbar__title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.topbar__search {
+  font-family: var(--ff-sans);
+  font-size: 0.85rem;
+  color: var(--clr-text);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-md);
+  width: 200px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.topbar__search::placeholder {
+  color: var(--clr-text-muted);
+}
+
+.topbar__search:focus {
+  outline: none;
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px rgba(124, 110, 240, 0.25);
+}
+
+.topbar__btn {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: background var(--transition);
+}
+
+.topbar__btn:hover {
+  background: var(--clr-surface-alt);
+}
+
+.topbar__avatar {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, var(--clr-primary), #a78bfa);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ——————————————————————————————————————————————————
+   6. MAIN
+   —————————————————————————————————————————————————— */
+.main {
+  grid-area: main;
+  padding: var(--space-xl);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* ——————————————————————————————————————————————————
+   7. STATS ROW — Grid responsivo con auto-fill
+   —————————————————————————————————————————————————— */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-lg);
+}
+
+.stat-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+.stat-card__icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.stat-card__value {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  line-height: 1.1;
+}
+
+.stat-card__label {
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+}
+
+/* ——————————————————————————————————————————————————
+   8. CONTENT ROW — Grid 2fr 1fr
+   —————————————————————————————————————————————————— */
+.content-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-lg);
+}
+
+/* ——————————————————————————————————————————————————
+   9. CARDS
+   —————————————————————————————————————————————————— */
+.card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.card__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  color: var(--clr-text);
+}
+
+/*
+ * COLOCACIÓN EXPLÍCITA — card--notes con grid-column: 1 / -1
+ * ---------------------------------------------------------------------------
+ * La tarjeta de notas ocupa el ancho completo del content-row (ambas columnas)
+ * usando grid-column: 1 / -1. Esto permite que las notas se presenten como
+ * una fila de tarjetas a lo ancho completo del área de contenido, sin
+ * necesidad de crear otra sección de grid aparte.
+ * ---------------------------------------------------------------------------
+ */
+.card--notes {
+  grid-column: 1 / -1;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+.note {
+  background: var(--clr-surface-alt);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.note:hover {
+  transform: translateY(-2px);
+  border-color: var(--clr-primary);
+}
+
+.note__title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+  color: var(--clr-text);
+}
+
+.note__text {
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+
+/* ——————————————————————————————————————————————————
+   10. TABLA DE PROYECTOS — Franjas zebra
+   —————————————————————————————————————————————————— */
+.card__table-wrapper {
+  overflow-x: auto;
+}
+
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.projects-table thead {
+  border-bottom: 2px solid var(--clr-border);
+}
+
+.projects-table th {
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--clr-text-muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.projects-table td {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--clr-text);
+  vertical-align: middle;
+}
+
+/* Franjas zebra: filas pares del tbody */
+.projects-table tbody tr:nth-child(even) {
+  background: var(--clr-surface-alt);
+}
+
+/* Hover en filas — prevalece sobre el zebra porque viene después en la cascada */
+.projects-table tbody tr:hover {
+  background: rgba(124, 110, 240, 0.1);
+}
+
+/* Badges de estado */
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge--success {
+  background: rgba(86, 212, 160, 0.15);
+  color: var(--clr-success);
+}
+
+.badge--warning {
+  background: rgba(240, 178, 84, 0.15);
+  color: var(--clr-warning);
+}
+
+.badge--danger {
+  background: rgba(240, 110, 110, 0.15);
+  color: var(--clr-danger);
+}
+
+/* Barra de progreso */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--clr-surface-alt);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 80px;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--clr-primary), var(--clr-accent));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* ——————————————————————————————————————————————————
+   11. ACTIVIDAD RECIENTE
+   —————————————————————————————————————————————————— */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.activity-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.activity-list__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.activity-list__dot--green  { background: var(--clr-success); }
+.activity-list__dot--blue   { background: var(--clr-primary); }
+.activity-list__dot--orange { background: var(--clr-warning); }
+
+.activity-list__text {
+  font-size: 0.85rem;
+  color: var(--clr-text);
+  line-height: 1.5;
+}
+
+.activity-list__text strong {
+  color: var(--clr-primary);
+}
+
+.activity-list__time {
+  font-size: 0.75rem;
+  color: var(--clr-text-muted);
+}
+
+/* ——————————————————————————————————————————————————
+   12. FOOTER DEL DASHBOARD
+   —————————————————————————————————————————————————— */
+.dashboard-footer {
+  text-align: center;
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--clr-border);
+  color: var(--clr-text-muted);
+  font-size: 0.82rem;
+  margin-top: auto;
+}
+
+.dashboard-footer strong {
+  color: var(--clr-primary);
+}
+
+/* ——————————————————————————————————————————————————
+   13. RESPONSIVE — Estrategia Grid (breakpoint 768px)
+   ——————————————————————————————————————————————————
+ *
+ * JUSTIFICACIÓN — Breakpoint 768px y Estrategia Grid
+ * ---------------------------------------------------------------------------
+ * Se usa 768px como breakpoint porque es el punto estándar donde los
+ * dispositivos tablet en orientación vertical dejan de tener espacio
+ * suficiente para mostrar un sidebar fijo junto al contenido principal.
+ *
+ * Se eligió la Estrategia Grid (redefinir grid-template-areas a una sola
+ * columna) porque permite reorganizar completamente el layout del dashboard
+ * sin duplicar HTML ni usar display:none/block de forma destructiva. Al
+ * cambiar las áreas a "topbar" / "sidebar" / "main" y las columnas a 1fr,
+ * el sidebar se apila debajo del topbar de forma natural, manteniendo toda
+ * la estructura semántica intacta. Esto es más mantenible y escalable que
+ * la alternativa de ocultar/mostrar elementos con Flexbox.
+ * ---------------------------------------------------------------------------
+ */
+@media (max-width: 768px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--topbar-h) auto 1fr;
+    grid-template-areas:
+      "topbar"
+      "sidebar"
+      "main";
+  }
+
+  /* Sidebar horizontal en móvil */
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--clr-border);
+    padding: var(--space-md) var(--space-lg);
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-lg);
+    overflow-x: auto;
+  }
+
+  .sidebar__brand {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .sidebar__menu {
+    flex-direction: row;
+    gap: var(--space-xs);
+    flex-shrink: 0;
+  }
+
+  .sidebar__link {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: var(--space-xs) var(--space-sm);
+    white-space: nowrap;
+    font-size: 0.82rem;
+  }
+
+  .sidebar__link:hover,
+  .sidebar__link--active {
+    border-left-color: transparent;
+    border-bottom-color: var(--clr-primary);
+  }
+
+  .sidebar__footer {
+    display: none;
+  }
+
+  /* Topbar */
+  .topbar {
+    padding: 0 var(--space-md);
+  }
+
+  .topbar__search {
+    width: 120px;
+  }
+
+  .topbar__title {
+    font-size: 1rem;
+  }
+
+  /* Main */
+  .main {
+    padding: var(--space-md);
+  }
+
+  /* Content-row a una columna */
+  .content-row {
+    grid-template-columns: 1fr;
+  }
+
+  .card--notes {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar__search {
+    display: none;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+}
